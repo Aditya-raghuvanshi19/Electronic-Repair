@@ -122,14 +122,14 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-2 text-primary" />
-                <span className="text-sm text-muted-foreground">support@electronics-repair.com</span>
+                <span className="text-sm text-muted-foreground">support@repair-ninja.com</span>
               </li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-border mt-10 pt-6 text-center text-sm text-muted-foreground">
-          <p>© {currentYear} Electronics Repair Service. All rights reserved.</p>
+          <p>© {currentYear} Repair Ninja. All rights reserved.</p>
         </div>
       </div>
     </footer>
