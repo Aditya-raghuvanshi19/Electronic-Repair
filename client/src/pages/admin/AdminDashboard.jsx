@@ -1,11 +1,20 @@
 import { useState } from 'react';
-import Header from '@/components/Header';
+import AdminHeader from '@/components/ui/AdminHeader';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
+import { Link } from 'react-router-dom';
+
+import AllServices from '@/pages/admin/AllServices';
+
 
 import { FaPlusCircle  , FaClipboardCheck } from 'react-icons/fa';
 import { FcServices } from "react-icons/fc";
+
+
 export default function AdminDashboard() {
+  const navigate = useNavigate();
    const { user, token, isAuthenticated } = useAuth();
   const server = `https://electronic-repair-server.vercel.app/api`;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,7 +57,7 @@ export default function AdminDashboard() {
 
   return (
     <>
-      <Header/>
+      <AdminHeader/>
     <div className="admin-dashboard p-4">
         <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
          {/* Admin Message/Quotes Section */}
@@ -83,12 +92,11 @@ export default function AdminDashboard() {
             <FcServices className="h-12 w-12 text-red-600 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-red-600 mb-2">All Services</h3>
             <p className="text-gray-600 mb-4">Manage existing services and removals</p>
-            <button 
-              className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md transition-colors"
-              
-            >
-              All Services
-            </button>
+            <Link to="/all-services">
+           <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md">
+             View All Services
+           </button>
+          </Link>
           </div>
         </div>
 
@@ -98,12 +106,14 @@ export default function AdminDashboard() {
             <FaClipboardCheck className="h-12 w-12 text-green-600 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-green-600 mb-2">Service Requests</h3>
             <p className="text-gray-600 mb-4">View and manage service requests</p>
+            <Link to="/admin/all-repairs"> 
             <button 
               className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md transition-colors"
               
             >
-              Check Requests
+              Check All Requests
             </button>
+            </Link>
           </div>
         </div>
       </div>

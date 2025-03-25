@@ -17,6 +17,8 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import { AuthProvider } from "./contexts/AuthContext";
+import AllServices from "./pages/admin/AllServices";  
+import AllRequests from "./pages/admin/AllRequests";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +41,8 @@ const App = () => (
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/payments" element={<Payments />} />
             <Route path="/reviews" element={<Reviews />} />
+            <Route path="/all-services" element={<AllServices />} />
+            <Route path="/admin/all-repairs" element={<AllRequests />} /> 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

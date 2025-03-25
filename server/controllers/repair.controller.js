@@ -36,6 +36,17 @@ export const fetchUserRepairs = async (req, res, next) => {
   }
 }
 
+export const fetchAllRepairs = async (req, res, next) => {
+  try {
+    const repairs = await Repair.find();
+    if (!repairs.length) {
+      return res.status(404).json({ message: 'No repairs found' });
+    }
+    res.status(201).json(repairs);
+  } catch (error) {
+    next(error);
+  }
+}
 export const getRepair = async (req, res, next) => {
   try {
     const repair = await Repair.findById(req.params.id)
