@@ -32,12 +32,19 @@ const Header = () => {
     >
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
-          <div 
-            className={`text-xl font-bold bg-clip-text ${
-              scrolled ? 'text-primary' : 'text-foreground'
-            } transition-all-slow`}
-          >
-            Electronics Repair
+          <div className="flex items-center space-x-2">
+            <img
+              src="..\src\components\assets\repair_ninja_logo.png"
+              alt="Repair Ninja Logo"
+              className="h-8 w-11" // Adjust the height and width as needed
+            />
+            <div
+              className={`text-xl font-bold bg-clip-text ${
+                scrolled ? 'text-primary' : 'text-foreground'
+              } transition-all-slow`}
+            >
+              Repair Ninja
+            </div>
           </div>
         </Link>
         
