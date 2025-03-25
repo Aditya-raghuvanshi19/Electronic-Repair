@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout, isAdmin } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -74,12 +74,21 @@ const Header = () => {
           
           <div className="flex items-center space-x-4">
             {isAuthenticated ? (
+              
               <>
                 <Button variant="ghost" size="sm" asChild>
+                  {isAdmin ? (
+                  <Link to="/admin" className="flex items-center space-x-1">
+                    <User size={16} />
+                    <span>Dashboard</span>
+                  </Link>
+                    
+                  ):(
                   <Link to="/dashboard" className="flex items-center space-x-1">
                     <User size={16} />
                     <span>Dashboard</span>
                   </Link>
+               ) }
                 </Button>
                 <Button variant="outline" size="sm" onClick={logout}>
                   Logout

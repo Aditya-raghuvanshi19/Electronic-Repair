@@ -142,6 +142,7 @@ export const AuthProvider = ({ children }) => {
       logout,
       isLoading,
       isAuthenticated: !!token,
+      isAdmin: user?.isAdmin || false,
     }}>
       {children}
     </AuthContext.Provider>
