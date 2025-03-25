@@ -75,7 +75,8 @@ export const AuthProvider = ({ children }) => {
         title: "Login successful",
         description: "Welcome back!",
       });
-
+      
+      data.user.isAdmin ? navigate('/admin') :
       navigate('/dashboard');
     } catch (error) {
       toast({
