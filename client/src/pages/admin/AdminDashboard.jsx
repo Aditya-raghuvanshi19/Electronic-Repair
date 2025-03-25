@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import AllServices from '@/pages/admin/AllServices';
 import { useToast } from "@/components/ui/use-toast";
 
-import { FaPlusCircle  , FaClipboardCheck } from 'react-icons/fa';
+import { FaPlusCircle  , FaClipboardCheck, FaCalendarCheck, FaStar } from 'react-icons/fa';
 import { FcServices } from "react-icons/fc";
 
 
@@ -125,7 +125,37 @@ export default function AdminDashboard() {
             </button>
             </Link>
           </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <div className="text-center">
+          <FaStar className="h-12 w-12 text-yellow-500 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-yellow-500 mb-2">Reviews</h3>
+          <p className="text-gray-600 mb-4">View and manage reviews</p>
+          <Link to="/admin/all-reviews">
+            <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-md transition-colors">
+              Check All Reviews
+            </button>
+          </Link>
         </div>
+      </div>
+          
+          {/* All Appointments Card */}
+        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+        <div className="text-center">
+          <FaCalendarCheck className="h-12 w-12 text-black-600 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-black-600 mb-2">Appointments</h3>
+          <p className="text-gray-600 mb-4">View and manage appointments</p>
+          <Link to="/admin/all-appointments">
+            <button className="bg-gray-500 hover:bg-grey-600 text-white px-6 py-2 rounded-md transition-colors">
+              Check All Appointments
+            </button>
+          </Link>
+        </div>
+      </div>
+
+      {/* Reviews */}
+      
       </div>
 
       {/* Add Service Modal */}

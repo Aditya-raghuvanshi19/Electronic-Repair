@@ -55,18 +55,11 @@ const Header = () => {
             
             {isAuthenticated && (
               <>
-                <Link to="/all-services" className="text-sm font-medium hover:text-primary transition-colors">
-                  All Services
-                </Link>
-                <Link to="/appointments-list" className="text-sm font-medium hover:text-primary transition-colors">
-                  All Appointments
-                </Link>
+               
                 <Link to="/payments" className="text-sm font-medium hover:text-primary transition-colors">
                   Payments
                 </Link>
-                <Link to="/reviews-list" className="text-sm font-medium hover:text-primary transition-colors">
-                  All Reviews
-                </Link>
+                
               </>
             )}
           </nav>
