@@ -37,7 +37,7 @@ const ServiceCard = ({ service }) => {
         <div className="flex space-x-4">
           <div className="flex items-center text-muted-foreground">
             <DollarSign className="mr-1 h-4 w-4" />
-            <span>${service.price.toFixed(2)}</span>
+            <span>₹{service.price.toFixed(2)}</span>
           </div>
           <div className="flex items-center text-muted-foreground">
             <Clock className="mr-1 h-4 w-4" />

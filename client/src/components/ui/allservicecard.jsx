@@ -45,7 +45,7 @@ const AllServiceCard = ({ service }) => {
           <div className="flex space-x-4">
             <div className="flex items-center text-muted-foreground">
               <DollarSign className="mr-1 h-4 w-4" />
-              <span>${service.price.toFixed(2)}</span>
+              <span>₹{service.price.toFixed(2)}</span>
             </div>
             <div className="flex items-center text-muted-foreground">
               <Clock className="mr-1 h-4 w-4" />
@@ -78,7 +78,7 @@ const AllServiceCard = ({ service }) => {
             <h2 className="text-xl font-bold">{service.name}</h2>
             <p className="mt-2">{service.description}</p>
             <p className="mt-2">
-              <strong>Price:</strong> ${service.price.toFixed(2)}
+              <strong>Price:</strong> ₹{service.price.toFixed(2)}
             </p>
             <p className="mt-2">
               <strong>Duration:</strong> {service.duration} mins
