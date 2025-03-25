@@ -3,7 +3,7 @@
 
 
 
-export const baseUrl = "https://be.naars.knileshh.com/api";
+export const baseUrl = "https://electronic-repair-server.vercel.app/api";
 
 export const categories = [
   {

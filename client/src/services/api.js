@@ -1,7 +1,7 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 
-const API_BASE_URL = 'https://be.naars.knileshh.com/api';
+const API_BASE_URL = 'https://electronic-repair-server.vercel.app/api';
 
 // Helper function to get authorization header
 const getAuthHeader = () => {

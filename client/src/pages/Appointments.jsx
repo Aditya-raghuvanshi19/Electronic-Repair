@@ -15,7 +15,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { CalendarIcon, Clock, Loader2 } from 'lucide-react';
 
 const fetchUserRepairs = async (token) => {
-  const response = await fetch('https://be.naars.knileshh.com/api/repairs', {
+  const response = await fetch('https://electronic-repair-server.vercel.app/api/repairs', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -67,7 +67,7 @@ const Appointments = () => {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch('https://be.naars.knileshh.com/api/appointments', {
+      const response = await fetch('https://electronic-repair-server.vercel.app/api/appointments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

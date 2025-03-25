@@ -11,7 +11,7 @@ import { Search } from 'lucide-react';
 
 
 const fetchServices = async () => {
-  const response = await fetch('https://be.naars.knileshh.com/api/services');
+  const response = await fetch('https://electronic-repair-server.vercel.app/api/services');
   if (!response.ok) {
     throw new Error('Failed to fetch services');
   }
