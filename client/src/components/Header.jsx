@@ -34,7 +34,7 @@ const Header = () => {
         <Link to="/" className="flex items-center space-x-2">
           <div className="flex items-center space-x-2">
             <img
-              src="../src/components/assets/repair_ninja_logo.png"
+              src="../public/assets/repair_ninja_logo.png"
               alt="Repair Ninja Logo"
               className="h-8 w-11" // Adjust the height and width as needed
             />
