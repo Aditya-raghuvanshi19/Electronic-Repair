@@ -2,27 +2,39 @@ import { Repair } from '../models/repair.model.js';
 import { Service } from '../models/service.model.js';
 
 export const createRepair = async (req, res, next) => {
-    try {
-      const { serviceId, description } = req.body;
-      
-      // Get the service to use its price as estimated cost
-      const service = await Service.findById(serviceId);
-      if (!service) {
-        return res.status(404).json({ message: 'Service not found' });
-      }
-  
-      const repair = await Repair.create({
-        userId: req.user._id,
-        serviceId,
-        description,
-        estimatedCost: service.price // Automatically set the estimated cost
-      });
-      
-      res.status(201).json(repair);
-    } catch (error) {
-      next(error);
+  try {
+    const { serviceId, description } = req.body;
+
+    // Get the service to use its price as estimated cost
+    const service = await Service.findById(serviceId);
+    if (!service) {
+      return res.status(404).json({ message: 'Service not found' });
     }
-  };
+
+    const repair = await Repair.create({
+      userId: req.user._id,
+      serviceId,
+      description,
+      estimatedCost: service.price // Automatically set the estimated cost
+    });
+
+    res.status(201).json(repair);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const fetchUserRepairs = async (req, res, next) => {
+  try {
+    const repairs = await Repair.find({ userId: req.params.id });
+    if (!repairs.length) {
+      return res.status(404).json({ message: 'No repairs found for this user' });
+    }
+    res.status(201).json(repairs);
+  } catch (error) {
+    next(error);
+  }
+}
 
 export const getRepair = async (req, res, next) => {
   try {
