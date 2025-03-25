@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-
+import { useAuth } from '@/contexts/AuthContext';
 
 import { FaPlusCircle  , FaClipboardCheck } from 'react-icons/fa';
 import { FcServices } from "react-icons/fc";
 export default function AdminDashboard() {
+   const { user, token, isAuthenticated } = useAuth();
   const server = `https://electronic-repair-server.vercel.app/api`;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -23,24 +24,27 @@ export default function AdminDashboard() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(`${server}/api/services/create`, {
-        method: "post",
-        body : formData
-      })
-  
-      const result = response.json();
-      console.log(result);
-      
-    } catch (err) {
-      console.log(err);
-    }
+  e.preventDefault();
+  try {
+    const response = await fetch(`${server}/services/create`, {
+      method: "POST",  // ✅ Moved outside headers
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",  // ✅ Ensure correct content type
+      },
+      body: JSON.stringify(formData),  // ✅ Convert to JSON if formData is an object
+    });
 
-    // Handle form submission here
-    console.log(formData);
-    setIsModalOpen(false);
-  };
+    const result = await response.json();  // ✅ Await response.json()
+    
+  } catch (err) {
+    console.error("Error:", err);
+  }
+
+  
+  setIsModalOpen(false);
+};
+
 
   return (
     <>
