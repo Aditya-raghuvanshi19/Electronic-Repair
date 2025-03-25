@@ -40,8 +40,8 @@ const fetchUserAppointments = async (token) => {
   return response.json();
 };
 
-const fetchUserPayments = async (token) => {
-  const response = await fetch('https://electronic-repair-server.vercel.app/api/payments', {
+const fetchUserPayments = async (token, userId) => {
+  const response = await fetch(`https://electronic-repair-server.vercel.app/api/payments/user/${userId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -87,7 +87,7 @@ const Dashboard = () => {
     isLoading: paymentsLoading
   } = useQuery({
     queryKey: ['payments', token],
-    queryFn: () => fetchUserPayments(token || ''),
+    queryFn: () => fetchUserPayments(token || '', user._id || ''),
     enabled: !!token,
   });
 

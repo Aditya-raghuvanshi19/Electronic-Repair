@@ -17,6 +17,20 @@ export const processPayment = async (req, res, next) => {
   }
 };
 
+export const fetchUserPayments = async (req, res, next) => {
+
+  try {
+    const payments = await Payment.find({ userId: req.params.id });
+    if (!payments.length) {
+      return res.status(404).json({ message: 'No payments found for this user' });
+    }
+    res.status(201).json(payments);
+  } catch (error) {
+    next(error);
+  }
+
+}
+
 export const getPaymentDetails = async (req, res, next) => {
   try {
     const payment = await Payment.findById(req.params.id)
