@@ -11,9 +11,10 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, CreditCard, Wrench, ArrowRight } from 'lucide-react';
 
-const fetchUserRepairs = async (token) => {
-  const response = await fetch('https://be.naars.knileshh.com/api/repairs', {
+const fetchUserRepairs = async (token, userId) => {
+  const response = await fetch(`https://electronic-repair-server.vercel.app/api/repairs/${userId}`, {
     headers: {
+      method: "GET",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -26,7 +27,7 @@ const fetchUserRepairs = async (token) => {
 };
 
 const fetchUserAppointments = async (token) => {
-  const response = await fetch('https://be.naars.knileshh.com/api/appointments', {
+  const response = await fetch('https://electronic-repair-server.vercel.app/api/appointments', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -40,7 +41,7 @@ const fetchUserAppointments = async (token) => {
 };
 
 const fetchUserPayments = async (token) => {
-  const response = await fetch('https://be.naars.knileshh.com/api/payments', {
+  const response = await fetch('https://electronic-repair-server.vercel.app/api/payments', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -68,7 +69,7 @@ const Dashboard = () => {
     isLoading: repairsLoading
   } = useQuery({
     queryKey: ['repairs', token],
-    queryFn: () => fetchUserRepairs(token || ''),
+    queryFn: () => fetchUserRepairs(token || '', user._id || ''),
     enabled: !!token,
   });
 
