@@ -46,6 +46,8 @@ const AllRequests = () => {
     console.log(`Rejected request with ID: ${id}`);
   };
 
+  var i=0
+
   return (
     <> 
     <AdminHeader/>
@@ -56,6 +58,7 @@ const AllRequests = () => {
         <thead>
           <tr className="bg-gray-200">
             <th className="py-2 px-4 border-b">User  ID</th>
+            <th className="py-2 px-4 border-b">Request  ID</th>
             <th className="py-2 px-4 border-b">Service ID</th>
             <th className="py-2 px-4 border-b">Status</th>
             <th className="py-2 px-4 border-b">Description</th>
@@ -63,10 +66,13 @@ const AllRequests = () => {
             <th className="py-2 px-4 border-b">Actions</th>
           </tr>
         </thead>
-        <tbody>
-          {requests.map((request) => (
+          <tbody>
+           
+            {requests.map((request) => (
+              
             <tr key={request._id} className="hover:bg-gray-100">
               <td className="py-2 px-4 border-b">{request.userId}</td>
+              <td className="py-2 px-4 border-b">{request._id}</td>
               <td className="py-2 px-4 border-b">{request.serviceId}</td>
               <td className="py-2 px-4 border-b">{request.status}</td>
               <td className="py-2 px-4 border-b">{request.description}</td>
