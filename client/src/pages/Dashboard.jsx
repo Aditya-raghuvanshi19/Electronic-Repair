@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Clock, CreditCard, Wrench, ArrowRight } from 'lucide-react';
 
 const fetchUserRepairs = async (token, userId) => {
-  const response = await fetch(`https://electronic-repair-server.vercel.app/api/repairs//user/${userId}`, {
+  const response = await fetch(`https://electronic-repair-server.vercel.app/api/repairs/user/${userId}`, {
     headers: {
       method: "GET",
       Authorization: `Bearer ${token}`,

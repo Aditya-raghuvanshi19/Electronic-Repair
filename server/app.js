@@ -13,6 +13,7 @@ import appointmentRoutes from './routes/appointment.routes.js';
 const app = express();
 
 app.use(cors());
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
