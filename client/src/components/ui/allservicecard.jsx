@@ -5,10 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Clock, DollarSign } from 'lucide-react';
-
+import { useToast } from "@/components/ui/use-toast";
 const AllServiceCard = ({ service }) => {
+  const server = `https://electronic-repair-server.vercel.app/api`
+  
+const { toast } = useToast();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, token } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleRequestRepair = () => {
@@ -18,6 +21,27 @@ const AllServiceCard = ({ service }) => {
       navigate('/login');
     }
   };
+
+  const handleRemoveService = async (service_id, token) => {
+    try {
+      const response = await fetch(`${server}/services/${service_id}`, {
+        method: "delete",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }) 
+      const result = await response.json();
+      console.log(result)
+      toast({
+        title: "Done!",
+        description: result.message,
+      });
+       window.location.reload();
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  
 
   const handleViewService = () => {
     setIsModalOpen(true);
@@ -44,7 +68,7 @@ const AllServiceCard = ({ service }) => {
         <CardContent className="flex-grow">
           <div className="flex space-x-4">
             <div className="flex items-center text-muted-foreground">
-              <DollarSign className="mr-1 h-4 w-4" />
+             
               <span>₹{service.price.toFixed(2)}</span>
             </div>
             <div className="flex items-center text-muted-foreground">
@@ -62,7 +86,10 @@ const AllServiceCard = ({ service }) => {
             View Service
           </Button>
           <Button
-            onClick={handleRequestRepair}
+            onClick={() => {
+              handleRemoveService(service._id, token)
+            }
+            }
             className="w-half m-5 bg-red-500"
             disabled={service.active === false}
           >

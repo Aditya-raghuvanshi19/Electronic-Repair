@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import AllServices from '@/pages/admin/AllServices';
-
+import { useToast } from "@/components/ui/use-toast";
 
 import { FaPlusCircle  , FaClipboardCheck } from 'react-icons/fa';
 import { FcServices } from "react-icons/fc";
@@ -15,7 +15,8 @@ import { FcServices } from "react-icons/fc";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
-   const { user, token, isAuthenticated } = useAuth();
+  const { user, token, isAuthenticated } = useAuth();
+  const { toast } = useToast();
   const server = `https://electronic-repair-server.vercel.app/api`;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -45,6 +46,15 @@ export default function AdminDashboard() {
     });
 
     const result = await response.json();  // ✅ Await response.json()
+    toast({
+      title: "🎉 Service Added Successfully!",
+      description: "Your new service has been added and is now available.",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+
+    console.log(result)
     
   } catch (err) {
     console.error("Error:", err);
