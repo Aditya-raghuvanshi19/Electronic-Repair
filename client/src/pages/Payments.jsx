@@ -61,7 +61,7 @@ const PaymentCard = ({ payment }) => {
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <div className="flex items-center">
-              <DollarSign className="h-4 w-4 mr-2 text-muted-foreground" />
+              
               <span className="text-sm font-medium">Amount</span>
             </div>
             <span className="font-semibold">
