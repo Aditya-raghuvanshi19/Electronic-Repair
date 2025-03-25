@@ -1,66 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 const AdminDashboard = () => {
-  const [services, setServices] = useState([]);
-  const [newService, setNewService] = useState({ name: '', description: '' });
-  const [pendingRequests, setPendingRequests] = useState([]);
 
-  useEffect(() => {
-    fetchServices();
-    fetchPendingRequests();
-  }, []);
-
-  const fetchServices = async () => {
-    const response = await axios.get('/api/services');
-    setServices(response.data);
+  // Function to handle the click event for adding services
+  const handleAddServices = () => {
+    alert('Add Services clicked');
   };
 
-  const fetchPendingRequests = async () => {
-    const response = await axios.get('/api/pending-requests');
-    setPendingRequests(response.data);
+  // Function to handle the click event for removing services
+  const handleRemoveServices = () => {
+    alert('Remove Services clicked');
   };
 
-  const addService = async () => {
-    await axios.post('/api/services', newService);
-    fetchServices();
-    setNewService({ name: '', description: '' });
-  };
-
-  const markAsCompleted = async (id) => {
-    await axios.put(`/api/pending-requests/${id}`, { status: 'completed' });
-    fetchPendingRequests();
+  // Function to handle the click event for checking service requests
+  const handleCheckServiceRequests = () => {
+    alert('Check Service Requests clicked');
   };
 
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <div>
-        <h2>Add New Service</h2>
-        <input
-          type="text"
-          placeholder="Service Name"
-          value={newService.name}
-          onChange={(e) => setNewService({ ...newService, name: e.target.value })}
-        />
-        <input
-          type="text"
-          placeholder="Service Description"
-          value={newService.description}
-          onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-        />
-        <button onClick={addService}>Add Service</button>
-      </div>
-      <div>
-        <h2>Pending Service Requests</h2>
-        <ul>
-          {pendingRequests.map((request) => (
-            <li key={request.id}>
-              {request.name} - {request.description}
-              <button onClick={() => markAsCompleted(request.id)}>Mark as Completed</button>
-            </li>
-          ))}
-        </ul>
+    <div className="admin-dashboard p-4">
+      <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+      <div className="button-tile space-y-2">
+        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={handleAddServices}>Add Services</button>
+        <button className="bg-red-500 text-white px-4 py-2 rounded" onClick={handleRemoveServices}>Remove Services</button>
+        <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={handleCheckServiceRequests}>Check Service Requests</button>
       </div>
     </div>
   );
