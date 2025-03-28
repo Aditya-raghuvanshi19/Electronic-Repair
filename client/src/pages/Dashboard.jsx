@@ -207,7 +207,7 @@ const Dashboard = () => {
                           </div>
                           <div className="flex items-center gap-4">
                             <div className="font-medium">
-                              ${repair.estimatedCost.toFixed(2)}
+                              ₹{repair.estimatedCost.toFixed(2)}
                             </div>
                             <Button
                               variant="ghost"
