@@ -66,7 +66,7 @@ const AllAppointments = () => {
             <th className="py-2 px-4 border-b">Status</th>
             <th className="py-2 px-4 border-b">Time</th>
             
-            <th className="py-2 px-4 border-b">Actions</th>
+            
           </tr>
         </thead>
           <tbody>
@@ -80,29 +80,16 @@ const AllAppointments = () => {
               <td className="py-2 px-4 border-b">{appointment.repairRequestId.serviceId.name}</td>
               <td className="py-2 px-4 border-b">{appointment.status}</td>
               <td className="py-2 px-4 border-b"><td className="py-2 px-4 border-b">
-  {new Date(appointment.scheduledDateTime).toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  })}
-</td></td>
-              <td className="py-2 px-4 border-b">
-                <button
-                  onClick={() => handleAccept(request._id)}
-                  className="bg-green-500 text-white px-4 py-1 rounded mr-2"
-                >
-                  Accept
-                </button>
-                <button
-                  onClick={() => handleReject(request._id)}
-                  className="bg-red-500 text-white px-4 py-1 rounded"
-                >
-                  Reject
-                </button>
-              </td>
+                {new Date(appointment.scheduledDateTime).toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true,
+                })}
+                </td></td>
+              
             </tr>
           ))}
         </tbody>

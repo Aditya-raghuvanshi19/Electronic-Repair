@@ -81,20 +81,7 @@ export default function AdminDashboard() {
     </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 m-24">
-        {/* Add Services Card */}
-        <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <div className="text-center">
-            <FaPlusCircle className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-blue-600 mb-2">Add Services</h3>
-            <p className="text-gray-600 mb-4">Add new services to the platform</p>
-            <button 
-              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition-colors"
-              onClick={() => setIsModalOpen(true)}
-            >
-              Add Services
-            </button>
-          </div>
-        </div>
+        
 
         {/* Remove Services Card */}
         <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">

@@ -24,7 +24,11 @@ export default function AdminDashboard() {
     description: "",
     price: '',
     duration: ''
+    
   });
+
+
+
 
   const handleInputChange = (e) => {
     setFormData({
@@ -35,14 +39,19 @@ export default function AdminDashboard() {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
-  try {
-    const response = await fetch(`${server}/services/create`, {
-      method: "POST",  // ✅ Moved outside headers
+    try {
+      const payload = {
+      ...formData,
+      vendorId: user._id, // inject vendorId here directly
+    };
+
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/services/create`, {
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",  // ✅ Ensure correct content type
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),  // ✅ Convert to JSON if formData is an object
+      body: JSON.stringify(payload),
     });
 
     const result = await response.json();  // ✅ Await response.json()
@@ -102,7 +111,7 @@ export default function AdminDashboard() {
             <FcServices className="h-12 w-12 text-red-600 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-red-600 mb-2">All Services</h3>
             <p className="text-gray-600 mb-4">Manage existing services and removals</p>
-            <Link to="/all-services">
+            <Link to="/vendor/all-services">
            <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-md">
              View All Services
            </button>
@@ -116,7 +125,7 @@ export default function AdminDashboard() {
             <FaClipboardCheck className="h-12 w-12 text-green-600 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-green-600 mb-2">Service Requests</h3>
             <p className="text-gray-600 mb-4">View and manage service requests</p>
-            <Link to="/admin/all-repairs"> 
+            <Link to="/vendor/all-repairs"> 
             <button 
               className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-md transition-colors"
               

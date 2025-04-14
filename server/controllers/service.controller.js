@@ -9,17 +9,32 @@ export const getServices = async (req, res, next) => {
   }
 };
 
+
+export const getServicesByVendorId = async (req, res, next) => {
+  try {
+    const vendorId = req.params.id;
+
+    const services = await Service.find({ vendorId: vendorId });
+    res.json(services);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createService = async (req, res, next) => {
   try {
-    const { name, description, price, duration } = req.body;
+    const { vendorId, name, description, price, duration } = req.body;
     const service = await Service.create({
+      vendorId,
       name,
       description,
       price,
       duration
     });
+    console.log(service)
     res.status(201).json(service);
   } catch (error) {
+    console.log(error)
     next(error);
   }
 };

@@ -18,6 +18,7 @@ import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import { AuthProvider } from "./contexts/AuthContext";
 import AllServices from "./pages/admin/AllServices";  
+import AllVendorServices from "./pages/vendor/AllServices";  
 import AllRequests from "./pages/admin/AllRequests";
 import VendorDashboard from "./pages/vendor/vendorDashboard";
 import AllAppointments from "./pages/admin/AllAppointments";
@@ -46,6 +47,8 @@ const App = () => (
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/all-services" element={<AllServices />} />
             <Route path="/admin/all-repairs" element={<AllRequests />} /> 
+            <Route path="/vendor/all-repairs" element={<AllRequests />} /> 
+            <Route path="/vendor/all-services" element={<AllVendorServices />} /> 
             <Route path="/admin/all-appointments" element={<AllAppointments />} /> 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
