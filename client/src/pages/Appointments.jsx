@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { CalendarIcon, Clock, Loader2 } from 'lucide-react';
+import { format } from "date-fns";
 
 const fetchUserRepairs = async (token, userId) => {
   const response = await fetch(import.meta.env.VITE_BACKEND_SERVER+'api/repairs/user/'+userId, {
@@ -37,11 +38,14 @@ const Appointments = () => {
   const { token, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [date, setDate] = useState(undefined);
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState("10:00");
   const [repairId, setRepairId] = useState('');
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const combinedDateTime = new Date(date);
+  const [hours, minutes] = time.split(":");
+  combinedDateTime.setHours(parseInt(hours), parseInt(minutes));
   const {
     data: repairs,
     isLoading: repairsLoading
@@ -50,6 +54,10 @@ const Appointments = () => {
     queryFn: () => fetchUserRepairs(token || '', user?._id),
     enabled: !!token,
   });
+
+  const handleTimeChange = (e) => {
+    setTime(e.target.value);
+  };
 
   console.log("id is: "+user?._id);
 
@@ -190,6 +198,22 @@ const Appointments = () => {
                       className="mx-auto"
                     />
                   </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <label htmlFor="time" className="text-sm font-medium">
+                    Select Time:
+                  </label>
+                  <input
+                    id="time"
+                    type="time"
+                    value={time}
+                    onChange={handleTimeChange}
+                    className="border rounded-md p-2"
+                  />
+                </div>
+
+                <div className="text-sm text-gray-600">
+                  Selected: {format(combinedDateTime, "PPPp")}
                 </div>
 
                 <div className="space-y-2">

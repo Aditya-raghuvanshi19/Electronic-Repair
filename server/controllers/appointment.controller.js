@@ -33,6 +33,9 @@ export const getAppointments = async (req, res, next) => {
   }
 };
 
+
+
+
 export const updateAppointment = async (req, res, next) => {
   try {
     const { scheduledDateTime, status, notes } = req.body;

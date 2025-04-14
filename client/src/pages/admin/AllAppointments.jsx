@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import AdminHeader from '@/components/ui/AdminHeader';
 import Footer from '@/components/Footer';
 
-const AllRequests = () => {
-  const [requests, setRequests] = useState([]);
+const AllAppointments = () => {
+  const [appointments, setAppointments] = useState([]);
   const { token } = useAuth();
   const server = `https://electronic-repair-server.vercel.app/api`;
 
-  const fetchRequests = async () => {
+  const fetchAppointments = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/repairs/admin/all-repairs`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/appointments/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -22,20 +22,20 @@ const AllRequests = () => {
       
 
       if (!response.ok) {
-        throw new Error('Failed to fetch requests');
+        throw new Error('Failed to fetch appointments');
       }
 
       const data = await response.json();
-      //console.log(data);
-      setRequests(data);
+      console.log(data);
+      setAppointments(data);
     } catch (error) {
-      console.error('Error fetching requests:', error);
+      console.error('Error fetching appointments:', error);
     }
   };
 
   useEffect(() => {
     if(token)
-      fetchRequests();
+      fetchAppointments();
   }, [token]);
 
   const handleAccept = async (id) => {
@@ -55,30 +55,40 @@ const AllRequests = () => {
     <AdminHeader/>
 
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">All Service Requests</h1>
+      <h1 className="text-2xl font-bold mb-4">All Appointments</h1>
       <table className="min-w-full bg-white border border-gray-300">
         <thead>
           <tr className="bg-gray-200">
-            <th className="py-2 px-4 border-b">Request  ID</th>
+            <th className="py-2 px-4 border-b">Appointment ID</th>
             <th className="py-2 px-4 border-b">User</th>
+            <th className="py-2 px-4 border-b">Repair ID</th>
             <th className="py-2 px-4 border-b">Service Name</th>
             <th className="py-2 px-4 border-b">Status</th>
-            <th className="py-2 px-4 border-b">Description</th>
-            <th className="py-2 px-4 border-b">Estimated Cost</th>
+            <th className="py-2 px-4 border-b">Time</th>
+            
             <th className="py-2 px-4 border-b">Actions</th>
           </tr>
         </thead>
           <tbody>
            
-            {requests.map((request) => (
+            {appointments.map((appointment) => (
               
-            <tr key={request._id} className="hover:bg-gray-100">
-              <td className="py-2 px-4 border-b">{request._id}</td>
-              <td className="py-2 px-4 border-b">{request.userId.email}</td>
-              <td className="py-2 px-4 border-b">{request.serviceId.name}</td>
-              <td className="py-2 px-4 border-b">{request.status}</td>
-              <td className="py-2 px-4 border-b">{request.description}</td>
-              <td className="py-2 px-4 border-b"><b>₹{request.estimatedCost.toFixed(2)}</b></td>
+            <tr key={appointment._id} className="hover:bg-gray-100">
+              <td className="py-2 px-4 border-b">{appointment._id}</td>
+              <td className="py-2 px-4 border-b">{appointment.userId.email}</td>
+              <td className="py-2 px-4 border-b">{appointment.repairRequestId._id}</td>
+              <td className="py-2 px-4 border-b">{appointment.repairRequestId.serviceId.name}</td>
+              <td className="py-2 px-4 border-b">{appointment.status}</td>
+              <td className="py-2 px-4 border-b"><td className="py-2 px-4 border-b">
+  {new Date(appointment.scheduledDateTime).toLocaleString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+  })}
+</td></td>
               <td className="py-2 px-4 border-b">
                 <button
                   onClick={() => handleAccept(request._id)}
@@ -103,4 +113,4 @@ const AllRequests = () => {
   );
 };
 
-export default AllRequests;
+export default AllAppointments;
