@@ -19,6 +19,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import { AuthProvider } from "./contexts/AuthContext";
 import AllServices from "./pages/admin/AllServices";  
 import AllRequests from "./pages/admin/AllRequests";
+import VendorDashboard from "./pages/vendor/vendorDashboard";
 import AllAppointments from "./pages/admin/AllAppointments";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/vendor" element={<VendorDashboard />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/services" element={<Services />} />
             <Route path="/repairs" element={<RepairRequests />} />
