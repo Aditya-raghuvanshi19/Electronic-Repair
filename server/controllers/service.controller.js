@@ -10,6 +10,15 @@ export const getServices = async (req, res, next) => {
   }
 };
 
+export const getAllServices = async (req, res, next) => {
+  try {
+    const services = await Service.find({ isEnabled: false });
+    res.json(services);
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export const getServicesByVendorId = async (req, res, next) => {
   try {
