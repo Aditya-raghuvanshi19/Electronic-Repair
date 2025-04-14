@@ -69,18 +69,25 @@ const Header = () => {
               
               <>
                 <Button variant="ghost" size="sm" asChild>
-                  {isAdmin ? (
-                  <Link to="/admin" className="flex items-center space-x-1">
-                    <User size={16} />
-                    <span>Dashboard</span>
-                  </Link>
-                    
-                  ):(
-                  <Link to="/dashboard" className="flex items-center space-x-1">
-                    <User size={16} />
-                    <span>Dashboard</span>
-                  </Link>
-               ) }
+                  {user?.isAdmin ? (
+                      <Link to="/admin" className="flex items-center space-x-1">
+                        <User size={16} />
+                        <span>Dashboard</span>
+                      </Link>
+                    ) : user?.isVendor ? (
+                      <Link to="/vendor" className="flex items-center space-x-1">
+                        <User size={16} />
+                        <span>Dashboard</span>
+                      </Link>
+                    ) : (
+                      <Link to="/dashboard" className="flex items-center space-x-1">
+                        <User size={16} />
+                        <span>Dashboard</span>
+                      </Link>
+                    )}
+                  
+                  
+
                 </Button>
                 <Button variant="outline" size="sm" onClick={logout}>
                   Logout

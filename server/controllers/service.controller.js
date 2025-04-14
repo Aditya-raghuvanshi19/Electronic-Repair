@@ -3,7 +3,7 @@ import { Service } from '../models/service.model.js';
 
 export const getServices = async (req, res, next) => {
   try {
-    const services = await Service.find({ active: true });
+    const services = await Service.find({ $and: [{ active: true }, { isEnabled: true }] });
     res.json(services);
   } catch (error) {
     next(error);
@@ -65,7 +65,7 @@ export const authorizeService = async (req, res, next) => {
 
     const service = await Service.findByIdAndUpdate(
       { _id: serviceId },
-      { $set: { active: accept } },
+      { $set: { active: accept, isEnabled: true } },
       { new: true }
     );
 
