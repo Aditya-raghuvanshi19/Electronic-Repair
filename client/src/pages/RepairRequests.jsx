@@ -16,7 +16,7 @@ import { Loader2 } from 'lucide-react';
 
 
 const fetchServices = async () => {
-  const response = await fetch('https://electronic-repair-server.vercel.app/api/services');
+  const response = await fetch(import.meta.env.VITE_BACKEND_SERVER+'api/services');
   if (!response.ok) {
     throw new Error('Failed to fetch services');
   }
@@ -65,7 +65,7 @@ const RepairRequests = () => {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch('https://electronic-repair-server.vercel.app/api/repairs', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_SERVER+'api/repairs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

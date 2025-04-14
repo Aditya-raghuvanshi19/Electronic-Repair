@@ -19,7 +19,12 @@ export const getAppointments = async (req, res, next) => {
   try {
     const query = req.user.isAdmin ? {} : { userId: req.user._id };
     const appointments = await Appointment.find(query)
-      .populate('repairRequestId')
+      .populate({
+        path: 'repairRequestId',
+        populate: {
+          path: 'serviceId', // 👈 this is the nested populate
+        }
+      })
       .populate('userId', 'email')
       .sort({ scheduledDateTime: 1 });
     res.json(appointments);

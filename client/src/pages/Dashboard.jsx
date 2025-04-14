@@ -27,7 +27,7 @@ const fetchUserRepairs = async (token, userId) => {
 };
 
 const fetchUserAppointments = async (token) => {
-  const response = await fetch('https://electronic-repair-server.vercel.app/api/appointments', {
+  const response = await fetch(import.meta.env.VITE_BACKEND_SERVER+'api/appointments', {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -14,8 +14,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/components/ui/use-toast';
 import { CalendarIcon, Clock, Loader2 } from 'lucide-react';
 
-const fetchUserRepairs = async (token) => {
-  const response = await fetch('https://electronic-repair-server.vercel.app/api/repairs', {
+const fetchUserRepairs = async (token, userId) => {
+  const response = await fetch(import.meta.env.VITE_BACKEND_SERVER+'api/repairs/user/'+userId, {
+   
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -24,12 +25,16 @@ const fetchUserRepairs = async (token) => {
   if (!response.ok) {
     throw new Error('Failed to fetch repairs');
   }
+  const result = await response.json();
+  console.log(userId);
+  console.log(token);
+  console.log(result);
 
-  return response.json();
+  return result;
 };
 
 const Appointments = () => {
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [date, setDate] = useState(undefined);
@@ -42,9 +47,11 @@ const Appointments = () => {
     isLoading: repairsLoading
   } = useQuery({
     queryKey: ['repairs', token],
-    queryFn: () => fetchUserRepairs(token || ''),
+    queryFn: () => fetchUserRepairs(token || '', user?._id),
     enabled: !!token,
   });
+
+  console.log("id is: "+user?._id);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -67,7 +74,7 @@ const Appointments = () => {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch('https://electronic-repair-server.vercel.app/api/appointments', {
+      const response = await fetch(import.meta.env.VITE_BACKEND_SERVER+'api/appointments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,6 +117,8 @@ const Appointments = () => {
   const availableRepairs = repairs?.filter(repair =>
     repair.status !== 'completed' && repair.status !== 'cancelled'
   );
+  console.log("availableRepairs")
+  console.log(availableRepairs)
 
   return (
     <div className="min-h-screen flex flex-col">

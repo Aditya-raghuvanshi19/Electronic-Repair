@@ -26,7 +26,7 @@ export const createRepair = async (req, res, next) => {
 
 export const fetchUserRepairs = async (req, res, next) => {
   try {
-    const repairs = await Repair.find({ userId: req.params.id });
+    const repairs = await Repair.find({ userId: req.params.id }).populate('serviceId');
     if (!repairs.length) {
       return res.status(404).json({ message: 'No repairs found for this user' });
     }
@@ -47,6 +47,9 @@ export const fetchAllRepairs = async (req, res, next) => {
     next(error);
   }
 }
+
+
+
 export const getRepair = async (req, res, next) => {
   try {
     const repair = await Repair.findById(req.params.id)

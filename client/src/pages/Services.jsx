@@ -10,7 +10,7 @@ import { Search } from 'lucide-react';
 
 
 const fetchServices = async () => {
-  const response = await fetch('https://electronic-repair-server.vercel.app/api/services');
+  const response = await fetch(import.meta.env.VITE_BACKEND_SERVER+'api/services');
   if (!response.ok) {
     throw new Error('Failed to fetch services');
   }
