@@ -25,6 +25,10 @@ const serviceSchema = new mongoose.Schema({
   active: {
     type: Boolean,
     default: true
+  },
+  isEnabled: {
+    type: Boolean,
+    default: false
   }
 });
 

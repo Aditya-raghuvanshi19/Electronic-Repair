@@ -1,3 +1,4 @@
+import { Review } from '../models/review.model.js';
 import { Service } from '../models/service.model.js';
 
 export const getServices = async (req, res, next) => {
@@ -54,3 +55,30 @@ export const deleteService = async (req, res, next) => {
     next(error);
   }
 };
+
+
+
+export const authorizeService = async (req, res, next) => {
+  try {
+    const serviceId = req.body.serviceId;
+    const accept = req.body.isAccepted;
+
+    const service = await Service.findByIdAndUpdate(
+      { _id: serviceId },
+      { $set: { active: accept } },
+      { new: true }
+    );
+
+    if (!service) {
+      return res.status(404).json({ message: 'Service not found' });
+    }
+
+    res.json({
+      message: `Service ${accept ? 'activated' : 'deactivated'} successfully`,
+      service,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+

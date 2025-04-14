@@ -48,7 +48,7 @@ export const updateAppointment = async (req, res, next) => {
       { new: true }
     );
     if (!appointment) {
-      return res.status(404).json({ message: 'Appointment not found' });
+      return res.status(404).json({ message: 'Appointment not found in DB' });
     }
     res.json(appointment);
   } catch (error) {
@@ -67,7 +67,7 @@ export const deleteAppointment = async (req, res, next) => {
       { new: true }
     );
     if (!appointment) {
-      return res.status(404).json({ message: 'Appointment not found' });
+      return res.status(404).json({ message: 'Appointment not found in DB' });
     }
     res.json({ message: 'Appointment canceled successfully' });
   } catch (error) {

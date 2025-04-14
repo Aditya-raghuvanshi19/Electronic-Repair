@@ -16,12 +16,35 @@ export const createReview = async (req, res, next) => {
 };
 
 export const getServiceReviews = async (req, res, next) => {
-    try {
-      const reviews = await Review.find({ serviceId: req.params.serviceId })
-        .populate('userId', 'email')
-        .sort({ createdAt: -1 });
-      res.json(reviews);
-    } catch (error) {
-      next(error);
-    }
-  };
+  try {
+    const reviews = await Review.find({ serviceId: req.params.serviceId })
+      .populate('userId', 'email')
+      .sort({ createdAt: -1 });
+    res.json(reviews);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getAllReviews = async (req, res, next) => {
+  try {
+    const reviews = await Review.find()
+      .populate({
+        path: 'userId' // includes all fields by default
+      })
+      .populate({
+        path: 'serviceId',
+        populate: {
+          path: 'vendorId',
+          model: 'User',
+          select: 'email' // include only email for vendor
+        }
+      })
+      .sort({ createdAt: -1 });
+
+    res.json(reviews);
+  } catch (error) {
+    next(error);
+  }
+};
+

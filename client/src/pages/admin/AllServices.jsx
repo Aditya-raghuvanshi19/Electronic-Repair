@@ -18,6 +18,8 @@ const fetchServices = async () => {
   return response.json();
 };
 
+
+
 const AllServices = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const { data: services, isLoading, error } = useQuery({
