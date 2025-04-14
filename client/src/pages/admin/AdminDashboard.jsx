@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import AllServices from '@/pages/admin/AllServices';
 import { useToast } from "@/components/ui/use-toast";
 
-import { FaPlusCircle  , FaClipboardCheck, FaCalendarCheck, FaStar } from 'react-icons/fa';
+import { FaPlusCircle  , FaClipboardCheck, FaCalendarCheck, FaStar, FaWrench } from 'react-icons/fa';
 import { FcServices } from "react-icons/fc";
 
 
@@ -98,10 +98,25 @@ export default function AdminDashboard() {
         </div>
 
         {/* Service Requests Card */}
+       <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+  <div className="text-center">
+    <FaWrench className="h-12 w-12 text-blue-600 mx-auto mb-4" /> {/* new icon */}
+    <h3 className="text-lg font-semibold text-blue-600 mb-2">Manage Services</h3> {/* updated text */}
+    <p className="text-gray-600 mb-4">View and authorize service requests</p> {/* updated subtitle */}
+    <Link to="/admin/all-repairs">
+      <button
+        className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition-colors"
+      >
+        Go to Services
+      </button>
+    </Link>
+  </div>
+</div>
+        {/* Service Requests Card */}
         <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
           <div className="text-center">
             <FaClipboardCheck className="h-12 w-12 text-green-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-green-600 mb-2">Service Requests</h3>
+            <h3 className="text-lg font-semibold text-green-600 mb-2">All Service Requests</h3>
             <p className="text-gray-600 mb-4">View and manage service requests</p>
             <Link to="/admin/all-repairs"> 
             <button 
