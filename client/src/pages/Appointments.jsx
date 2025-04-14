@@ -90,7 +90,7 @@ const Appointments = () => {
         },
         body: JSON.stringify({
           repairRequestId: repairId,
-          scheduledDateTime: date.toISOString(),
+          scheduledDateTime: combinedDateTime.toISOString(),
           notes,
         }),
       });
@@ -226,6 +226,7 @@ const Appointments = () => {
                   />
                 </div>
 
+                
                 <Button
                   type="submit"
                   className="w-full"
