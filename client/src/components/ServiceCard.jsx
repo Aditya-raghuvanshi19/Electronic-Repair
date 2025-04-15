@@ -9,6 +9,7 @@ import { Clock, DollarSign } from 'lucide-react';
 
 
 const ServiceCard = ({ service }) => {
+  console.log(service)
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
@@ -32,11 +33,12 @@ const ServiceCard = ({ service }) => {
           )}
         </div>
         <CardDescription>{service.description}</CardDescription>
+
       </CardHeader>
       <CardContent className="flex-grow">
+        <div className='text-muted-foreground'> Vendor: {service?.vendorId.email }</div>
         <div className="flex space-x-4">
           <div className="flex items-center text-muted-foreground">
-            
             <span>₹{service.price.toFixed(2)}</span>
           </div>
           <div className="flex items-center text-muted-foreground">

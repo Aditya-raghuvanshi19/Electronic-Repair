@@ -9,7 +9,8 @@ const router = Router();
 router.post('/', authMiddleware, createRepair);
 router.get('/:id', authMiddleware, getRepair);
 router.get('/user/:id', authMiddleware, fetchUserRepairs);
-router.get('/admin/all-repairs', authMiddleware, vendorMiddleware, fetchAllRepairs);
+router.get('/admin/all-repairs', authMiddleware, adminMiddleware, fetchAllRepairs);
+router.get('/vendor/all-repairs', authMiddleware, vendorMiddleware, fetchAllRepairs);
 
 router.put('/:id/status', authMiddleware, adminMiddleware, updateRepairStatus);
 

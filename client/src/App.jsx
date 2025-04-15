@@ -24,6 +24,7 @@ import VendorDashboard from "./pages/vendor/vendorDashboard";
 import AllAppointments from "./pages/admin/AllAppointments";
 import AllReviews from "./pages/admin/AllReviews";
 import AuthorizeServices from "./pages/admin/AuthorizeServices";
+import VendorRequests from "./pages/vendor/VendorRequests";
 
 
 const queryClient = new QueryClient();
@@ -51,7 +52,9 @@ const App = () => (
             <Route path="/all-services" element={<AllServices />} />
             <Route path="/admin/all-repairs" element={<AllRequests />} /> 
             <Route path="/admin/all-reviews" element={<AllReviews />} /> 
-            <Route path="/vendor/all-repairs" element={<AllRequests />} /> 
+            <Route path="/vendor/all-repairs" element={<VendorRequests />} /> 
+
+            
             <Route path="/vendor/all-services" element={<AllVendorServices />} /> 
             <Route path="/admin/all-appointments" element={<AllAppointments />} /> 
             <Route path="/admin/authorize-services" element={<AuthorizeServices />} /> 

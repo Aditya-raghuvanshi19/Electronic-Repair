@@ -3,7 +3,7 @@ import { Service } from '../models/service.model.js';
 
 export const getServices = async (req, res, next) => {
   try {
-    const services = await Service.find({ $and: [{ active: true }, { isEnabled: true }] });
+    const services = await Service.find({ $and: [{ active: true }, { isEnabled: true }] }).populate('vendorId');
     res.json(services);
   } catch (error) {
     next(error);
@@ -12,7 +12,7 @@ export const getServices = async (req, res, next) => {
 
 export const getAllServices = async (req, res, next) => {
   try {
-    const services = await Service.find({ isEnabled: false });
+    const services = await Service.find({ isEnabled: false }).populate('vendorId');
     res.json(services);
   } catch (error) {
     next(error);
