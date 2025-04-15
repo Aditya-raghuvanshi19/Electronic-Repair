@@ -12,7 +12,7 @@ const VendorRequests = () => {
 
   const fetchRequests = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/repairs/admin/all-repairs`, {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/repairs/vendor/all-repairs`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,

@@ -214,7 +214,7 @@ const RepairDetail = () => {
                     <h3 className="text-sm font-medium text-muted-foreground mb-2">
                       Estimated Cost
                     </h3>
-                    <p className="text-xl font-semibold">${repair.estimatedCost.toFixed(2)}</p>
+                    <p className="text-xl font-semibold">₹{repair.estimatedCost.toFixed(2)}</p>
                   </div>
 
                   {repair.finalCost && (
