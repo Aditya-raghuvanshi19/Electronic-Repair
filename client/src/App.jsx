@@ -20,11 +20,13 @@ import { AuthProvider } from "./contexts/AuthContext";
 import AllServices from "./pages/admin/AllServices";  
 import AllVendorServices from "./pages/vendor/AllServices";  
 import AllRequests from "./pages/admin/AllRequests";
-import VendorDashboard from "./pages/vendor/vendorDashboard";
+import VendorDashboard from "./pages/vendor/VendorDashboard";
 import AllAppointments from "./pages/admin/AllAppointments";
 import AllReviews from "./pages/admin/AllReviews";
 import AuthorizeServices from "./pages/admin/AuthorizeServices";
 import VendorRequests from "./pages/vendor/VendorRequests";
+import RequestHistory from "./pages/vendor/RequestHistory";
+import AdminRequestHistory from "./pages/admin/AdminRequestHistory";
 
 
 const queryClient = new QueryClient();
@@ -53,6 +55,8 @@ const App = () => (
             <Route path="/admin/all-repairs" element={<AllRequests />} /> 
             <Route path="/admin/all-reviews" element={<AllReviews />} /> 
             <Route path="/vendor/all-repairs" element={<VendorRequests />} /> 
+            <Route path="/vendor/request-history" element={<RequestHistory />} /> 
+            <Route path="/admin/request-history" element={<AdminRequestHistory />} /> 
 
             
             <Route path="/vendor/all-services" element={<AllVendorServices />} /> 

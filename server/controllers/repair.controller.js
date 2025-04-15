@@ -38,15 +38,22 @@ export const fetchUserRepairs = async (req, res, next) => {
 
 export const fetchAllRepairs = async (req, res, next) => {
   try {
-    const repairs = await Repair.find().populate(['serviceId', 'userId']).lean();;
+    const repairs = await Repair.find()
+      .populate([
+        { path: 'serviceId', populate: { path: 'vendorId' } },
+        { path: 'userId' }
+      ])
+      .lean();
+
     if (!repairs.length) {
       return res.status(404).json({ message: 'No repairs found' });
     }
-    res.status(201).json(repairs);
+
+    res.status(200).json(repairs);
   } catch (error) {
     next(error);
   }
-}
+};
 
 
 

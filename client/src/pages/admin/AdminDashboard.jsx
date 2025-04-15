@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import AllServices from '@/pages/admin/AllServices';
 import { useToast } from "@/components/ui/use-toast";
 
-import { FaPlusCircle  , FaClipboardCheck, FaCalendarCheck, FaStar, FaWrench } from 'react-icons/fa';
+import { FaPlusCircle  , FaClipboardCheck, FaCalendarCheck, FaStar, FaWrench, FaCheckCircle  } from 'react-icons/fa';
 import { FcServices } from "react-icons/fc";
 
 
@@ -154,11 +154,31 @@ export default function AdminDashboard() {
             </button>
           </Link>
         </div>
-      </div>
+          </div>
 
+           <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition-shadow">
+                    <div className="text-center">
+                      <FaCheckCircle className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
+                      <h3 className="text-xl font-bold text-indigo-700 mb-2">Requests History</h3>
+                      <p className="text-gray-600 mb-4">Easily access all service requests history</p>
+                      <Link to="/admin/request-history">
+                        <button
+                          className="bg-indigo-500 hover:bg-violet-600 text-white font-medium px-6 py-2 rounded-md transition-all shadow-sm hover:shadow-md"
+                        >
+                          View History
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                    
+          
+
+    
       {/* Reviews */}
       
-      </div>
+        </div>
+        
+        
 
       {/* Add Service Modal */}
       {isModalOpen && (

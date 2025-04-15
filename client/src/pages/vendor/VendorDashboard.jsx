@@ -157,13 +157,13 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition-shadow">
           <div className="text-center">
             <FaCheckCircle className="h-12 w-12 text-indigo-600 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-indigo-700 mb-2">Approved Requests</h3>
-            <p className="text-gray-600 mb-4">Easily access all approved service requests</p>
-            <Link to="/vendor/all-repairs">
+            <h3 className="text-xl font-bold text-indigo-700 mb-2">Requests History</h3>
+            <p className="text-gray-600 mb-4">Easily access all service requests history</p>
+            <Link to="/vendor/request-history">
               <button
                 className="bg-indigo-500 hover:bg-violet-600 text-white font-medium px-6 py-2 rounded-md transition-all shadow-sm hover:shadow-md"
               >
-                View Approved Services
+                View History
               </button>
             </Link>
           </div>

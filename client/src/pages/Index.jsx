@@ -81,7 +81,9 @@ const Index = () => {
               Fast, reliable repairs for all your electronic devices.
               Professional technicians and quality parts guaranteed.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            {(!user?.isAdmin && !user?.isVendor) ? (
+            <>
               <Button size="lg" asChild>
                 <Link to={isAuthenticated ? "/repairs" : "/register"}>
                   {isAuthenticated ? "Request Repair" : "Get Started"}
@@ -92,6 +94,15 @@ const Index = () => {
                   Browse Services
                 </Link>
               </Button>
+            </>
+          ) : (
+            <Button size="lg" asChild>
+              <Link to={user?.isAdmin ? "/admin" : "/vendor"}>
+                Go to Dashboard
+              </Link>
+            </Button>
+          )}
+
             </div>
           </div>
           

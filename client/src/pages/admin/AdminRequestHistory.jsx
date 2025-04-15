@@ -5,13 +5,13 @@ import AdminHeader from '@/components/ui/AdminHeader';
 import Footer from '@/components/Footer';
 import axios from 'axios';
 
-const VendorManageRepairs = () => {
+const AdminRequestHistory = () => {
   const { token } = useAuth();
   const [repairs, setRepairs] = useState([]);
 
   const fetchRepairs = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/repairs/vendor/all-repairs`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/repairs/admin/all-repairs`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -23,6 +23,7 @@ const VendorManageRepairs = () => {
 
       const data = await res.json();
       setRepairs(data);
+      console.log(data)
     } catch (err) {
       console.error(err);
       toast({
@@ -73,25 +74,28 @@ const VendorManageRepairs = () => {
     <>
       <AdminHeader />
       <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Manage Repair Requests</h1>
+        <h1 className="text-2xl font-bold mb-4">Repair History</h1>
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
             <tr className="bg-gray-200">
               <th className="py-2 px-4 border-b">Request ID</th>
               <th className="py-2 px-4 border-b">User</th>
-              <th className="py-2 px-4 border-b">Service</th>
+              <th className="py-2 px-4 border-b">Service Name</th>
+              <th className="py-2 px-4 border-b">Vendor</th>
               <th className="py-2 px-4 border-b">Description</th>
               <th className="py-2 px-4 border-b">Cost</th>
               <th className="py-2 px-4 border-b w-[150px] text-center">Status</th>
-              <th className="py-2 px-4 border-b w-[500px] text-center">Actions</th>
+              
             </tr>
           </thead>
           <tbody>
             {repairs.map((repair) => (
+              
               <tr key={repair._id} className="hover:bg-gray-50">
                 <td className="py-2 px-4 border-b">{repair._id}</td>
                 <td className="py-2 px-4 border-b">{repair.userId?.email}</td>
                 <td className="py-2 px-4 border-b">{repair.serviceId?.name}</td>
+                <td className="py-2 px-4 border-b">{repair.serviceId?.vendorId?.email}</td>
                 <td className="py-2 px-4 border-b">{repair.description}</td>
                 <td className="py-2 px-4 border-b font-semibold">₹{repair.estimatedCost.toFixed(2)}</td>
                 <td className="py-2 px-4 border-b capitalize  w-[150px] text-center">
@@ -104,21 +108,7 @@ const VendorManageRepairs = () => {
                     {repair.status}
                   </span>
                 </td>
-                <td className="py-2 px-4 border-b  w-[500px] text-center">
-                  {statusOptions.map((status) =>
-                    repair.status !== status ? (
-                      <button
-                        key={status}
-                        onClick={() => updateStatus(repair._id, status)}
-                        disabled={repair.status === 'completed'}
-                        className="text-white text-sm px-3 py-1 rounded mr-2 mb-1
-                          bg-gray-700 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        Mark as {status.replace('-', ' ')}
-                      </button>
-                    ) : null
-                  )}
-                </td>
+                
               </tr>
             ))}
           </tbody>
@@ -129,4 +119,4 @@ const VendorManageRepairs = () => {
   );
 };
 
-export default VendorManageRepairs;
+export default AdminRequestHistory;
