@@ -335,7 +335,7 @@ const Dashboard = () => {
                             Method: {payment.paymentMethod}
                           </span>
                           <span className="font-medium">
-                            ${payment.amount.toFixed(2)}
+                            ₹{payment.amount.toFixed(2)}
                           </span>
                         </div>
                         <div className="flex items-center text-sm text-muted-foreground">
