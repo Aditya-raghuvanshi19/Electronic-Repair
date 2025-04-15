@@ -17,6 +17,7 @@ router.get('/', getServices);
 router.get('/admin/getAll', getAllServices);
 router.get('/vendor/:id', getServicesByVendorId);
 router.post('/create', authMiddleware, createService);
-router.delete('/:id', authMiddleware, vendorMiddleware, deleteService);
+router.delete('/:id', authMiddleware, adminMiddleware, deleteService);
+router.delete('/vendor/:id', authMiddleware, vendorMiddleware, deleteService);
 router.post('/authorize', authMiddleware, adminMiddleware, authorizeService);
 export default router;

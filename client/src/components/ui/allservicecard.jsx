@@ -6,14 +6,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Clock, DollarSign } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
+
 const AllServiceCard = ({ service }) => {
-  const server = `https://electronic-repair-server.vercel.app/api`
+  
   
 const { toast } = useToast();
   const navigate = useNavigate();
   const { isAuthenticated, token } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const { user } = useAuth();
   const handleRequestRepair = () => {
     if (isAuthenticated) {
       navigate('/repairs', { state: { serviceId: service._id } });
@@ -24,7 +25,11 @@ const { toast } = useToast();
 
   const handleRemoveService = async (service_id, token) => {
     try {
-      const response = await fetch(`${server}/services/${service_id}`, {
+      var route = `${import.meta.env.VITE_BACKEND_SERVER}api/services/${service_id}`
+      if (user?.isVendor) {
+        route = `${import.meta.env.VITE_BACKEND_SERVER}api/services/vendor/${service_id}`
+      }
+      const response = await fetch(route, {
         method: "delete",
         headers: {
           Authorization: `Bearer ${token}`,
