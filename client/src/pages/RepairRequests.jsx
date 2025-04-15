@@ -147,7 +147,7 @@ const RepairRequests = () => {
                         value={service._id}
                         disabled={!service.active}
                       >
-                        {service.name} - ${service.price.toFixed(2)}
+                        {service.name} - ₹{service.price.toFixed(2)}
                       </SelectItem>
                     ))}
                   </SelectContent>
