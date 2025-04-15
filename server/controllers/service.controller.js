@@ -51,11 +51,7 @@ export const createService = async (req, res, next) => {
 
 export const deleteService = async (req, res, next) => {
   try {
-    const service = await Service.findByIdAndUpdate(
-      req.params.id,
-      { active: false },
-      { new: true }
-    );
+    const service = await Service.findByIdAndDelete(req.params.id);
     if (!service) {
       return res.status(404).json({ message: 'Service not found' });
     }

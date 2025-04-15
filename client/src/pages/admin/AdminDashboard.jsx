@@ -103,7 +103,7 @@ export default function AdminDashboard() {
     <FaWrench className="h-12 w-12 text-blue-600 mx-auto mb-4" /> {/* new icon */}
     <h3 className="text-lg font-semibold text-blue-600 mb-2">Manage Services</h3> {/* updated text */}
     <p className="text-gray-600 mb-4">View and authorize service requests</p> {/* updated subtitle */}
-    <Link to="/admin/all-repairs">
+    <Link to="/admin/authorize-services">
       <button
         className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md transition-colors"
       >

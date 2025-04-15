@@ -14,7 +14,7 @@ import { vendorMiddleware } from '../middleware/vendor.middleware.js';
 const router = Router();
 
 router.get('/', getServices);
-router.get('/getAll', getAllServices);
+router.get('/admin/getAll', getAllServices);
 router.get('/vendor/:id', getServicesByVendorId);
 router.post('/create', authMiddleware, createService);
 router.delete('/:id', authMiddleware, vendorMiddleware, deleteService);

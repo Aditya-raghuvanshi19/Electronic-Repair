@@ -23,6 +23,7 @@ import AllRequests from "./pages/admin/AllRequests";
 import VendorDashboard from "./pages/vendor/vendorDashboard";
 import AllAppointments from "./pages/admin/AllAppointments";
 import AllReviews from "./pages/admin/AllReviews";
+import AuthorizeServices from "./pages/admin/AuthorizeServices";
 
 
 const queryClient = new QueryClient();
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="/vendor/all-repairs" element={<AllRequests />} /> 
             <Route path="/vendor/all-services" element={<AllVendorServices />} /> 
             <Route path="/admin/all-appointments" element={<AllAppointments />} /> 
+            <Route path="/admin/authorize-services" element={<AuthorizeServices />} /> 
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
