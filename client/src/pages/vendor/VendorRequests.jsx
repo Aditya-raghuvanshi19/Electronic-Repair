@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { toast } from '@/components/ui/use-toast';
 import AdminHeader from '@/components/ui/AdminHeader';
 import Footer from '@/components/Footer';
-import { toast } from '@/components/ui/use-toast';
 import axios from 'axios';
 
-const VendorRequests = () => {
-  const [requests, setRequests] = useState([]);
+const VendorManageRepairs = () => {
   const { token } = useAuth();
+  const [repairs, setRepairs] = useState([]);
 
-  const fetchRequests = async () => {
+  const fetchRepairs = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/repairs/vendor/all-repairs`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_SERVER}api/repairs/vendor/all-repairs`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -20,51 +19,29 @@ const VendorRequests = () => {
         },
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch requests');
-      }
+      if (!res.ok) throw new Error('Failed to fetch repairs');
 
-      const data = await response.json();
-      setRequests(data);
-      
-    } catch (error) {
-      console.log(error)
-      console.error('Error fetching requests:', error);
+      const data = await res.json();
+      setRepairs(data);
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: "❌ Error",
+        description: "Could not load repairs.",
+        variant: "destructive",
+      });
     }
   };
 
   useEffect(() => {
-    if (token) fetchRequests();
+    if (token) fetchRepairs();
   }, [token]);
 
-  const updateRequestStatus = (id, newStatus) => {
-    setRequests((prev) =>
-      prev.map((req) =>
-        req._id === id ? { ...req, status: newStatus } : req
-      )
-    );
-  };
-
-  const handleAccept = async (requestId) => {
-    const request = requests.find((r) => r._id === requestId);
-    const serviceId = request?.serviceId?._id;
-
-    if (!serviceId) {
-      toast({
-        title: "❌ Error",
-        description: "Service ID missing.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const updateStatus = async (repairId, newStatus) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_SERVER}api/services/authorize`,
-        {
-          isAccepted: true,
-          serviceId,
-        },
+      await axios.put(
+        `${import.meta.env.VITE_BACKEND_SERVER}api/repairs/${repairId}/status`,
+        { status: newStatus },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,117 +49,74 @@ const VendorRequests = () => {
         }
       );
 
-      updateRequestStatus(requestId, 'accepted');
-      toast({
-        title: "✅ Service Accepted",
-        description: "The service has been accepted.",
-      });
-    } catch (error) {
-      console.log(error);
-      toast({
-        title: "❌ Error",
-        description: "Failed to accept the request.",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleReject = async (requestId) => {
-    const request = requests.find((r) => r._id === requestId);
-    const serviceId = request?.serviceId?._id;
-
-    if (!serviceId) {
-      toast({
-        title: "❌ Error",
-        description: "Service ID missing.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_SERVER}api/services/authorize`,
-        {
-          isAccepted: false,
-          serviceId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      setRepairs((prev) =>
+        prev.map((r) => (r._id === repairId ? { ...r, status: newStatus } : r))
       );
 
-      updateRequestStatus(requestId, 'rejected');
       toast({
-        title: "🚫 Service Rejected",
-        description: "The service request has been rejected.",
+        title: `🔄 Status Updated`,
+        description: `Repair marked as ${newStatus}.`,
       });
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.error(err);
       toast({
         title: "❌ Error",
-        description: "Failed to reject the request.",
+        description: "Could not update status.",
         variant: "destructive",
       });
     }
   };
+
+  const statusOptions = ['in-progress', 'completed', 'cancelled'];
 
   return (
     <>
       <AdminHeader />
       <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Approve Repairs</h1>
+        <h1 className="text-2xl font-bold mb-4">Manage Repair Requests</h1>
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
             <tr className="bg-gray-200">
               <th className="py-2 px-4 border-b">Request ID</th>
               <th className="py-2 px-4 border-b">User</th>
-              <th className="py-2 px-4 border-b">Service Name</th>
-              <th className="py-2 px-4 border-b">Status</th>
+              <th className="py-2 px-4 border-b">Service</th>
               <th className="py-2 px-4 border-b">Description</th>
-              <th className="py-2 px-4 border-b">Estimated Cost</th>
+              <th className="py-2 px-4 border-b">Cost</th>
+              <th className="py-2 px-4 border-b">Status</th>
               <th className="py-2 px-4 border-b">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {requests.map((request) => (
-              <tr key={request._id} className="hover:bg-gray-100">
-                <td className="py-2 px-4 border-b">{request._id}</td>
-                <td className="py-2 px-4 border-b">{request.userId?.email}</td>
-                <td className="py-2 px-4 border-b">{request.serviceId?.name}</td>
-                <td className="py-2 px-4 border-b capitalize">{request.status}</td>
-                <td className="py-2 px-4 border-b">{request.description}</td>
-                <td className="py-2 px-4 border-b font-bold">₹{request.estimatedCost.toFixed(2)}</td>
-                <td className="py-2 px-4 border-b text-center">
-                  {request.status === 'pending' ? (
-                    <>
+            {repairs.map((repair) => (
+              <tr key={repair._id} className="hover:bg-gray-50">
+                <td className="py-2 px-4 border-b">{repair._id}</td>
+                <td className="py-2 px-4 border-b">{repair.userId?.email}</td>
+                <td className="py-2 px-4 border-b">{repair.serviceId?.name}</td>
+                <td className="py-2 px-4 border-b">{repair.description}</td>
+                <td className="py-2 px-4 border-b font-semibold">₹{repair.estimatedCost.toFixed(2)}</td>
+                <td className="py-2 px-4 border-b capitalize">
+                  <span className={`px-3 py-1 rounded text-white text-sm font-medium ${
+                    repair.status === 'pending' ? 'bg-yellow-500'
+                    : repair.status === 'in-progress' ? 'bg-blue-500'
+                    : repair.status === 'completed' ? 'bg-green-600'
+                    : 'bg-red-600'
+                  }`}>
+                    {repair.status}
+                  </span>
+                </td>
+                <td className="py-2 px-4 border-b">
+                  {statusOptions.map((status) =>
+                    repair.status !== status ? (
                       <button
-                        onClick={() => handleAccept(request._id)}
-                        className="bg-green-500 text-white px-4 py-1 rounded mr-2"
+                        key={status}
+                        onClick={() => updateStatus(repair._id, status)}
+                        disabled={repair.status === 'completed'}
+                        className="text-white text-sm px-3 py-1 rounded mr-2 mb-1
+                          bg-gray-700 hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Accept
+                        Mark as {status.replace('-', ' ')}
                       </button>
-                      <button
-                        onClick={() => handleReject(request._id)}
-                        className="bg-red-500 text-white px-4 py-1 rounded"
-                      >
-                        Reject
-                      </button>
-                    </>
-                  ) : (
-                    <span
-                      className={`px-3 py-1 rounded text-white text-sm font-medium ${
-                        request.status === 'accepted'
-                          ? 'bg-green-600'
-                          : request.status === 'rejected'
-                          ? 'bg-red-600'
-                          : 'bg-gray-500'
-                      }`}
-                    >
-                      {request.status.charAt(0).toUpperCase() + request.status.slice(1)}
-                    </span>
+                    ) : null
                   )}
                 </td>
               </tr>
@@ -195,4 +129,4 @@ const VendorRequests = () => {
   );
 };
 
-export default VendorRequests;
+export default VendorManageRepairs;

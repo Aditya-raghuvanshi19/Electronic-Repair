@@ -12,6 +12,6 @@ router.get('/user/:id', authMiddleware, fetchUserRepairs);
 router.get('/admin/all-repairs', authMiddleware, adminMiddleware, fetchAllRepairs);
 router.get('/vendor/all-repairs', authMiddleware, vendorMiddleware, fetchAllRepairs);
 
-router.put('/:id/status', authMiddleware, adminMiddleware, updateRepairStatus);
+router.put('/:id/status', authMiddleware, vendorMiddleware, updateRepairStatus);
 
 export default router;
